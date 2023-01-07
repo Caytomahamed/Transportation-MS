@@ -1,0 +1,84 @@
+:root {
+  ---color-primary: #55c57a;
+  ---color-primary-light: #80d671;
+  ---color-primary-dark: #28b485;
+
+  ---color-secondary-light: #ffb900;
+  ---color-secondary-dark: #ff7730;
+
+  ---color-tertiary-light: #2998ff;
+  ---color-tertiary-dark: #5643fa;
+
+  ---color-grey-light-1: #f7f7f7;
+  ---color-grey-light-2: #eee;
+
+  ---color-grey-dark: #777;
+  ---color-grey-dark-2: #999;
+  ---color-grey-dark-3: #333;
+
+  ---color-white: #fff;
+  ---color-black: #000;
+
+  ---default-font-size: 1.6rem;
+}
+
+/* MY TICKET  */
+/* section {
+  background-color: var(---color-grey-light-2);
+} */
+
+.mytickets {
+  background-color: red;
+  width: 100%;
+  margin: 3rem auto 5rem auto;
+  display: flex;
+  padding: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.mytickets .card {
+  transform: translate(-3rem, 0.5rem);
+}
+
+.myticket {
+  width: 300px;
+  height: 500px;
+  margin-right: 7rem;
+}
+.mybus {
+  flex: 1;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.mybus .ticket {
+  z-index: inherit;
+  width: 100%;
+  transition: all 3s linear;
+}
+.mybus .ticket--1 {
+  position: absolute;
+  transform: rotate(-22deg) scale(0.9);
+  transition: all 3s linear;
+}
+.mybus .ticket--2 {
+  position: absolute;
+  transform: rotate(22deg) scale(0.9);
+  transition: all 3s linear;
+}
+.mybus .ticket--3 {
+  position: absolute;
+  z-index: 1;
+}
+.mybus .ticket--3:hover .mybus .ticket--1 {
+  transform: rotate(22deg) scale(1.1);
+}
+.mybus .ticket--3:hover ~ .mybus .ticket--2 {
+  transform: rotate(-22deg) scale(1.1);
+}

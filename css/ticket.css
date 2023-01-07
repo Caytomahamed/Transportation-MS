@@ -1,0 +1,228 @@
+:root {
+  ---color-primary: #55c57a;
+  ---color-primary-light: #80d671;
+  ---color-primary-dark: #28b485;
+
+  ---color-secondary-light: #ffb900;
+  ---color-secondary-dark: #ff7730;
+
+  ---color-tertiary-light: #2998ff;
+  ---color-tertiary-dark: #5643fa;
+
+  ---color-grey-light-1: #f7f7f7;
+  ---color-grey-light-2: #eee;
+
+  ---color-grey-dark: #777;
+  ---color-grey-dark-2: #999;
+  ---color-grey-dark-3: #333;
+
+  ---color-white: #fff;
+  ---color-black: #000;
+
+  ---default-font-size: 1.6rem;
+}
+
+.model {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.ticket {
+  background-color: #fefefe;
+  margin: auto;
+  padding-bottom: 30px;
+  border: 1px solid #888;
+  width: 40%;
+  z-index: 10;
+}
+/* The Close Button */
+.ticket__close {
+  color: #aaaaaa;
+  float: right;
+  font-weight: bold;
+  font-size: 40px;
+  position: relative;
+  right: 20px;
+  top: 10px;
+}
+
+.ticket__close:hover,
+.ticket__close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ticket h1 {
+  text-align: center;
+  font-size: 30px;
+  -webkit-background-clip: text;
+  margin: 14px;
+  color: transparent;
+  background-image: linear-gradient(
+    rgba(41, 152, 255, 0.85),
+    rgba(86, 67, 250, 0.85)
+  );
+}
+.booking-table {
+  font-family: cursive;
+  border-collapse: collapse;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+.ticket_frame {
+  width: 90%;
+  margin: 0 auto;
+  background: var(---color-primary-dark);
+  height: 30px;
+}
+.booking-table td,
+th {
+  text-align: left;
+  padding: 8px;
+}
+.booking-table th {
+  font-size: 18px;
+}
+.booking-table td {
+  font-size: 1.4rem;
+}
+
+.checkout__modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.checkout {
+  margin: auto;
+  border: 1px solid #888;
+  width: 60%;
+  z-index: 10;
+  display: flex;
+  position: relative;
+}
+
+.checkout__close {
+  color: #aaaaaa;
+  font-weight: bold;
+  font-size: 40px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.checkout__close:hover,
+.checkout__close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.checkout__icon {
+  width: 55%;
+  height: 390px;
+  background-image: url("../image/bill.png");
+  background-blend-mode: screen;
+  background-position: center;
+  background-size: contain;
+  background-color: red;
+}
+.checkout__form {
+  height: 390px;
+  width: 45%;
+  background-color: white;
+  padding: 20px;
+}
+.checkout__title {
+  font-size: 35px;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    rgba(41, 152, 255, 0.85),
+    rgba(86, 67, 250, 0.85)
+  );
+}
+.checkout__form p {
+  color: var(---color-grey-dark);
+  margin: 2rem auto;
+}
+.checkout__form input {
+  width: 80%;
+  font-size:1.6rem;
+  padding: 10px;
+}
+.checkout__form input:last-child {
+  margin-bottom: 2rem;
+}
+
+/* MY TICKET  */
+.mytickets {
+  background-color: white;
+  width: 203%;
+  margin: 5rem auto;
+  display: flex;
+  padding: 3rem;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.2);
+}
+.mytickets:last-child {
+  margin-bottom: 5rem;
+}
+.mytickets .card {
+  transform: translate(-3rem, 0.5rem);
+}
+
+.myticket {
+  width: 300px;
+  height: 500px;
+  margin-right: 7rem;
+}
+.mybus {
+  flex: 1;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.mybus .ticket {
+  z-index: inherit;
+  width: 100%;
+  transition: all 3s linear;
+}
+.mybus .ticket--1 {
+  position: absolute;
+  transform: rotate(-22deg) scale(0.9);
+  transition: all 3s linear;
+}
+.mybus .ticket--2 {
+  position: absolute;
+  transform: rotate(22deg) scale(0.9);
+  transition: all 3s linear;
+}
+.mybus .ticket--3 {
+  position: absolute;
+  z-index: 1;
+}
+.mybus .ticket--3:hover .mybus .ticket--1 {
+  transform: rotate(22deg) scale(1.1);
+}
+.mybus .ticket--3:hover ~ .mybus .ticket--2 {
+  transform: rotate(-22deg) scale(1.1);
+}
