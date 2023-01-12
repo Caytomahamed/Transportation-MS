@@ -3,14 +3,11 @@ require "./functions.php";
 $connection = db_connect();
 if(isset($_POST['add'])){
     // 1). GET ALL DATA FROM IN register.php 
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $phone = $_POST["phone"];    
+    $busno = $_POST["busno"];
+    $driverId = $_POST["driverId"];
 
     //3). IF is Ok setup sql query
-    $sql ="INSERT INTO users (firstname,lastname,email,password,phone,role)VALUES('$firstname','$lastname','$email',MD5('$password') ,'$phone','CLIENT')";
+    $sql ="INSERT INTO bus(busno,driverId)VALUES('$busno','$driverId')";
 
     // 4). use this connection and insert
     mysqli_query($connection,$sql);
@@ -25,8 +22,8 @@ if(isset($_POST['add'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-           window.location ="usersPage.php"
-        }, 1000);
+           window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php
@@ -40,8 +37,8 @@ if(isset($_POST['add'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-           window.location ="usersPage.php"
-        }, 1000);
+           window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php
@@ -50,15 +47,10 @@ if(isset($_POST['add'])){
 
 if(isset($_POST['update'])){
     $id = $_POST['id'];
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $phone = $_POST["phone"];    
+    $busno = $_POST["busno"];
+    $driverId = $_POST["driverId"]; 
     
-    echo $id;
-    
-   $sql = "UPDATE `users` SET `firstname` ='".$firstname."' , `lastname`='".$lastname."' , `email` ='".$email."',`password` ='".$password."',`phone` ='".$phone."' WHERE `id` ='".$id."'" ;
+   $sql = "UPDATE `bus` SET `busno` ='".$busno."' , `driverId`='".$driverId."' WHERE `id` ='".$id."'" ;
     
   $result = mysqli_query($connection,$sql);
   $rowsAffected = mysqli_affected_rows($connection);
@@ -72,8 +64,8 @@ if(isset($_POST['update'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-                    window.location ="usersPage.php"
-        }, 1000);
+                    window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php
@@ -87,8 +79,8 @@ if(isset($_POST['update'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-           window.location ="usersPage.php"
-        }, 1000);
+           window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php
@@ -98,7 +90,7 @@ if(isset($_POST['update'])){
 if(isset($_POST['delete'])){
     $id = $_POST['id'];
     
-   $sql = "DELETE FROM `users` WHERE `id` = '".$id."'" ;
+   $sql = "DELETE FROM `bus` WHERE `id` = '".$id."'" ;
     
    $result = mysqli_query($connection,$sql);
    $rowsAffected = mysqli_affected_rows($connection);
@@ -112,8 +104,8 @@ if(isset($_POST['delete'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-                    window.location ="usersPage.php"
-        }, 1000);
+                    window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php
@@ -127,8 +119,8 @@ if(isset($_POST['delete'])){
     ?>
     <script type="text/javascript">
         setTimeout(() => {
-             window.location ="usersPage.php"
-        }, 1000);
+             window.location ="busPage.php"
+        }, 100);
     </script> 
   
     <?php

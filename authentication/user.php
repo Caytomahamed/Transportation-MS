@@ -9,7 +9,7 @@
 
 $hostname ="localhost";
 $username = "root";
-$password = "";
+$password = "12345678";
 $dabaseName = "busscheduledb";
 
 

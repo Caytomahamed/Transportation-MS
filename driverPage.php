@@ -27,9 +27,10 @@
   <?php  
   require "./authentication/user.php";
   require './getJson.php';
+  require './driver.php';
 
   $userData = json_decode($userJson);      
-  $driverData = json_decode($driverJson)
+  $driverData = json_decode($driverJson);
   ?>
   <body>
     <div class="addNew">
@@ -38,12 +39,9 @@
         <div class="form__New_transport">
           <form method="POST" >
            <fieldset>
-             <legend> Add New User</legend>
-             <input type="text" placeholder="Enter firstname*"  name="firstname"/>
-             <input type="text" placeholder=" Enter lastname *"  name="lastname"/>
-             <input type="email" placeholder="Enter your email*"  name="email"/>
-             <input type="number" placeholder=" Enter your phone *"  name="phone"/>
-             <input type="password"  name="password" placeholder="Ebter your password*" />
+             <legend> Add New Driver</legend>
+             <input type="text" placeholder="Enter firstname*"  name="drivername"/>
+             <input type="date" placeholder=" Enter lastname *"  name="employDate"/>
         </fieldset>
         <input type="submit" value="Register" name="add"/>
       </form>
@@ -60,11 +58,7 @@
         <fieldset>
             <legend> Update User</legend>
              <input type="hidden" name="id" class="updateId"/>
-              <input type="text" placeholder="Enter firstname*"  name="firstname"/>
-             <input type="text" placeholder=" Enter lastname *"  name="lastname"/>
-             <input type="email" placeholder="Enter your email*"  name="email"/>
-             <input type="number" placeholder=" Enter your phone *"  name="phone"/>
-             <input type="password"  name="password" placeholder="Ebter your password*" />
+             <input type="text" placeholder="Enter firstname*"  name="drivername"/>
             </fieldset>
         <input type="submit" value="Update" name="update" class="updateSchedule"/>
       </form>
@@ -106,7 +100,7 @@
             <h3><?php echo $data["firstname"] . " " . $data["lastname"];?></h3>
           <?php } ?>
         </div>
-           <div class="dashboard__menu">
+          <div class="dashboard__menu">
           <ul>
             <li class="active">
               <a href="./index.php" >
@@ -131,9 +125,9 @@
               >
             </li>
             <li>
-              <a href="./routePage.php">
+              <a href="./bookingPage.php">
                 <img src="./image/account.svg" alt="accountbank" />
-                Routes</a
+                Booking</a
               >
             </li>
             <!-- <li>
@@ -145,25 +139,25 @@
           </ul>
         </div>
         
-        <a href="./login.php" class="exit"> Exist<img src="./image/exit.svg" alt="exit"></a>
+        <a href="./authentication/logout.php" class="exit"> Logout<img src="./image/exit.svg" alt="exit"></a>
       </div>
       <div class="dashboard__content" >
-        <div class="dashboard__summary">
+      <div class="dashboard__summary">
             <div class="dashboard__summary__box">
                 <h1>total users</h1>
-                <h1> 555 </h1>
+                <h1><?php echo $usercount ?></h1>
             </div>
             <div class="dashboard__summary__box">
-                <h1>total users</h1>
-                <h1>55</h1>
+                <h1>total buses</h1>
+                <h1><?php echo $buscount;?></h1>
             </div>
             <div class="dashboard__summary__box">
                 <h1>total schedule</h1>
-                 <h1>555</h1>
+                 <h1><?php echo $schedulecount?></h1>
             </div>
             <div class="dashboard__summary__box">
                 <h1>total Booking</h1>
-                <h1>100</h1>
+                <h1><?php echo $bookcount?></h1>
             </div>
         </div>
         

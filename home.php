@@ -35,10 +35,10 @@
      include("./includes/header.php");
      include "./authentication/user.php";
      require "./getJson.php";
-     require "./booking.php";
+     require "./booknow.php";
      $scheduleData = json_decode($scheduleJson);
      $userData = json_decode($userJson);
-     print_r($scheduleData);
+
     ?>
     <div class="model">
       <div class="ticket">

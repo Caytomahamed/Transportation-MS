@@ -1,3 +1,16 @@
+<?php 
+ require "./includes/connection.php";
+if(isset($_POST['update']) && isset($_FILES["image"])){
+    $id = $_POST['id'];
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $phone = $_POST["phone"];  
+    
+    print_r($_FILES);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,17 +20,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/cleintdashboard.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="./css/register.css" />
+    <link rel="stylesheet" href="./css/alertmsg.css?v=<?php echo time(); ?>" />
   </head>
   <body>
     <?php require "./authentication/user.php";
      require './getJson.php';
      $userData = json_decode($userJson);
-     $accountData = json_decode($accountJson);
-     echo $accountJson;;
     ?> 
 
     <section class="dashboard">
-      <div class="dashboard__sidebar">
+      <div class="dashboard__sidebar"  style="padding-top:4rem;">
         <div class="dashboard__profile">
           <div class="dashboard__profile__image">
           <?php foreach($userData as $user){ 
@@ -29,6 +42,7 @@
             <?php } ?>  
           </div>
           <p>Wellcome back</p>
+          <p><?php echo $data["email"];?></p>
             <h3><?php echo $data["firstname"] . " " . $data["lastname"];?></h3>
           <?php } ?>
         </div>
@@ -44,139 +58,57 @@
                 <img src="./image/myticket.svg" alt="myticket" /> myticket</a
               >
             </li>
-            <li>
-              <a href="./myaccount.php">
-                <img src="./image/account.svg" alt="accountbank" />
-                accountbank</a
-              >
-            </li>
           </ul>
         </div>
         
-        <a href="./home.php" class="exit"> Exist<img src="./image/exit.svg" alt="exit"></a>
+        <a href="./home.php" class="exit">Home<img src="./image/exit.svg" alt="exit"></a>
       </div>
       <div class="dashboard__content">
-        <div class="balance__card">
-          <div class="balance__header">
-            <p>Availiable balance</p>
-            <p>Credit</p>
-          </div>
-            
-            <h1 class="amount">$12,000</h1>
-           <div class="balance__bottom">
-            <h3>**** 4444</h3>
-            <div class="circle circle--1"></div>
-            <div class="circle circle--2"></div>
-          </div>
+        <?php 
+          foreach($userData as $user){ 
+            $data = get_object_vars($user);
+            $firstname = $data["firstname"];
+            $lastname =$data["lastname"];
+            $email = $data["email"];
+            $phone = $data["phone"];
+          }
+          ?> 
+          
+        <form method="POST">   
+        <h1>Update Account</h1>
 
-        </div>
-
-        <div class="transaction">
-          <h3>Transaction</h3>
-          <div style="overflow-x: auto">
-            <table>
-              <tr>
-                <th>id</th>
-                <th>sentTo</th>
-                <th>amount</th>
-                <th>status</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Smith</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>fail</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>fail</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="availiable__transport">
-          <h3>Availiable Transport</h3>
-          <div style="overflow-x: auto">
-            <table>
-              <tr>
-                <th>id</th>
-                <th>sentTo</th>
-                <th>amount</th>
-                <th>status</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Smith</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>fail</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>fail</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="tickets">
-          <h3>My Tickets</h3>
-          <div style="overflow-x: auto">
-            <table>
-              <tr>
-                <th>id</th>
-                <th>sentTo</th>
-                <th>amount</th>
-                <th>status</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Smith</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>fail</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Jonas</td>
-                <td>50</td>
-                <td>success</td>
-              </tr>
-            </table>
-          </div>
-        </div>
+        <fieldset>
+          <input type="hidden" name="id" value="<?php echo $id;?>"/>
+          <label for="firstname">
+            <img src="./image/user.svg" alt="user" />
+            <input type="text" name="firstname" id="firstname" autocomplete="off" placeholder="Enter firstname *" value='<?php echo $firstname?>'/>
+          </label>
+          <label for="lastname">
+            <img src="./image/user.svg" alt="user" />
+            <input type="text" name="lastname" autocomplete="off" placeholder="Enter lastname *" value='<?php echo $lastname?>'/>
+          </label>
+          <label for="email">
+            <img src="./image/email.svg" alt="email" />
+            <input type="text" name="email" id="email" autocomplete="off" placeholder="Enter your email" value='<?php echo $email?>'/>
+          </label>
+          <label for="phone">
+            <img src="./image/call-black.svg" alt="lock icon" />
+              <input type="text" name="phone" autocomplete="off" placeholder="Enter password *" value='<?php echo $phone?>'/>
+          </label>
+          <label for="photo">
+            <img src="./image/user.svg" alt="lock icon" />
+            <input type="file" name="image" autocomplete="off" />
+          </label>
+          <label for="password">
+            <img src="./image/lock.svg" alt="lock icon" />
+            <input type="password" name="password" autocomplete="off"  placeholder="Enter confirm password *" />
+          </label>
+        </fieldset>
+        <input type="submit" name="update" id="submit" value="Update">
+      </form>
       </div>
     </section>
+    <script src="./js/home.js">
+    </script>
   </body>
 </html>

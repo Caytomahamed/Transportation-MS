@@ -22,7 +22,7 @@ if(isset($_POST['add'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -37,7 +37,7 @@ if(isset($_POST['add'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -65,7 +65,7 @@ if(isset($_POST['update'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -80,7 +80,7 @@ if(isset($_POST['update'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -105,7 +105,7 @@ if(isset($_POST['delete'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -120,7 +120,7 @@ if(isset($_POST['delete'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="index.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php

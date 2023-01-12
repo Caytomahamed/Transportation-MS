@@ -27,33 +27,14 @@
   <?php  
   require "./authentication/user.php";
   require './getJson.php';
-  require './users.php';
+  require './booking.php';
   
-  $routeDate = json_decode($routeJson);
-  $userData = json_decode($userJson);
+  $userData = json_decode($userJson);      
+  $bookingData = json_decode($bookingJson);
   $users = json_decode($usersJson);
-  $scheduleData = json_decode($scheduleJson);
+  $schedules = json_decode($scheduleJson);
   ?>
   <body>
-    <div class="addNew">
-      <div class="popup-form">
-        <span class="addNew__close">&times;</span>
-        <div class="form__New_transport">
-          <form method="POST" >
-           <fieldset>
-             <legend> Add New User</legend>
-             <input type="text" placeholder="Enter firstname*"  name="firstname"/>
-             <input type="text" placeholder=" Enter lastname *"  name="lastname"/>
-             <input type="email" placeholder="Enter your email*"  name="email"/>
-             <input type="number" placeholder=" Enter your phone *"  name="phone"/>
-             <input type="password"  name="password" placeholder="Ebter your password*" />
-        </fieldset>
-        <input type="submit" value="Register" name="add"/>
-      </form>
-    </div>
-      </div>
-      </div>
-    </div> 
     
     <div class="addNew edite">
       <div class="popup-form">
@@ -61,15 +42,39 @@
         <div class="form__New_transport">
           <form method="POST" >
         <fieldset>
-            <legend> Update User</legend>
+            <legend> Update Booking </legend>
              <input type="hidden" name="id" class="updateId"/>
-              <input type="text" placeholder="Enter firstname*"  name="firstname"/>
-             <input type="text" placeholder=" Enter lastname *"  name="lastname"/>
-             <input type="email" placeholder="Enter your email*"  name="email"/>
-             <input type="number" placeholder=" Enter your phone *"  name="phone"/>
-             <input type="password"  name="password" placeholder="Ebter your password*" />
-            </fieldset>
-        <input type="submit" value="Update" name="update" class="updateSchedule"/>
+             <label for="userId">Select User</label>
+            <select id="userId" name="userId">
+             <?php 
+             foreach( $users as $data){
+              $user = get_object_vars($data);
+              
+              $id = $user["id"];
+              $firstname = $user["firstname"];
+              $lastname = $user['lastname']; ?>
+                <option value="<?php echo $id?>">
+                  <?php echo $id.". " . $firstname . "  ". $lastname; ?>
+                </option>
+              <?php } ?>
+             </select>
+             
+             <label for="scheduleId">Select Schedule</label>
+             <select id="scheduleId" name="scheduleId">
+             <?php 
+             foreach($schedules as $data){
+              $schedule = get_object_vars($data);
+              
+              $id = $schedule["id"];
+              $start = $schedule["start"];
+              $finished = $schedule['finish']; ?>
+                <option value="<?php echo $id?>">
+                <?php echo $id.". " . $start . " to ". $finished; ?>
+              </option>
+              <?php } ?>
+             </fieldset>
+               <input type="submit" value="Update" name="update" class="updateSchedule"/>
+             </select>
       </form>
         </div>
       </div>
@@ -109,7 +114,7 @@
             <h3><?php echo $data["firstname"] . " " . $data["lastname"];?></h3>
           <?php } ?>
         </div>
-          <div class="dashboard__menu">
+            <div class="dashboard__menu">
           <ul>
             <li class="active">
               <a href="./index.php" >
@@ -151,7 +156,7 @@
         <a href="./authentication/logout.php" class="exit"> Logout<img src="./image/exit.svg" alt="exit"></a>
       </div>
       <div class="dashboard__content" >
-       <div class="dashboard__summary">
+      <div class="dashboard__summary">
             <div class="dashboard__summary__box">
                 <h1>total users</h1>
                 <h1><?php echo $usercount ?></h1>
@@ -169,40 +174,35 @@
                 <h1><?php echo $bookcount?></h1>
             </div>
         </div>
-      <div class="addNewsBox">
-        <button class="addNewBtn"> + NEW schedule</button>
-      </div>
       <div class="information">
         <table id="users">
          <tr>
-           <th>id</th>
-           <th>firstname </th>
-           <th>lastname</th>
-           <th>email</th>
-           <th>password </th>
-           <th>phone</th>
-           <th>role</th>
+           <th>#id</th>
+           <th>#userId</th>
+           <th>#scheduleId</th>
+           <th>bookedSeat</th>
+           <th>booked</th>
+           <th>bookingCreated</th>
            <th>actions</th>
         </tr>
            <?php 
-             foreach($users as $data){
-            $user = get_object_vars($data);
-            
-            $id = $user["id"];
-            $firstname = $user["firstname"];
-            $lastname = $user["lastname"];
-            $email = substr($user["email"],0,12);
-            $passwor = substr($user["password"],0,7);
-            $phone = $user["phone"];
-            $role = $user["role"]; ?>
+            foreach($bookingData as $da){
+              $data = get_object_vars($da);
+              $id = $data["id"];
+              $userId = $data["userId"];
+              $scheduleId = $data["scheduleId"];
+              $bookedSeat = $data["bookedSeat"];
+              $booked = $data["booked"];
+              $bookingCreated = $data["bookingCreated"];
+              
+            ?>
             <tr data-id="<?php echo $id?>">
             <td><?php echo $id;?></td>
-            <td><?php echo $firstname;?></td>
-            <td><?php echo $lastname;?></td>
-            <td><?php echo $email;?>..</td>
-            <td><?php echo $passwor;?>...</td>
-            <td><?php echo $phone;?></td>
-            <td><?php echo $role;?></td>
+            <td><?php echo $userId;?></td>
+            <td><?php echo $scheduleId;?></td>
+            <td><?php echo $bookedSeat;?></td>
+            <td><?php echo $booked;?></td>
+            <td><?php echo $bookingCreated;?></td>
             <td>
                 <button type="submit" class="editeBtn" name="update">Update</button>
                 <button type="submit" name="deleteBtn" class="deleteBtn">Delete</button>
@@ -215,11 +215,7 @@
       </table>
      
       </div>
-
-     
-        
     </section>
-    
     <script src="./js/home.js?v=<?php echo time();?>" ></script>
     <script src="./js/.js?v=<?php echo time();?>" ></script>
   </body>

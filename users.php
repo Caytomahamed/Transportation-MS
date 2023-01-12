@@ -26,7 +26,7 @@ if(isset($_POST['add'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -41,7 +41,7 @@ if(isset($_POST['add'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -53,7 +53,7 @@ if(isset($_POST['update'])){
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
-    $password = $_POST["password"];
+    $password = MD5($_POST["password"]);
     $phone = $_POST["phone"];    
     
     echo $id;
@@ -73,7 +73,7 @@ if(isset($_POST['update'])){
     <script type="text/javascript">
         setTimeout(() => {
                     window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -88,7 +88,7 @@ if(isset($_POST['update'])){
     <script type="text/javascript">
         setTimeout(() => {
            window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -113,7 +113,7 @@ if(isset($_POST['delete'])){
     <script type="text/javascript">
         setTimeout(() => {
                     window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php
@@ -128,7 +128,7 @@ if(isset($_POST['delete'])){
     <script type="text/javascript">
         setTimeout(() => {
              window.location ="usersPage.php"
-        }, 1000);
+        }, 100);
     </script> 
   
     <?php

@@ -53,7 +53,7 @@ INSERT INTO `users` ( `firstname`, `lastname`, `email`, `password`,  `phone`, `r
 ('Cali', 'Xassan', 'admin@gmail.com', '25d55ad283aa400af464c76d713c07ad', '44444444', 'ADMIN'),
 ('Cismaan', 'farax', 'cismaan@gmail.com', '25d55ad283aa400af464c76d713c07ad', '33939393', 'CLIENT'),
 ('Jamac', 'sugule', 'marmar@gmail.com', '25d55ad283aa400af464c76d713c07ad', '3939393', 'CLIENT'),
-('Diriye', 'Axmed', 'dirrye@gmail.com', '25d55ad283aa400af464c76d713c07ad', '33030303', 'CLIENT'),
+('Diriye', 'Axmed', '	e@gmail.com', '25d55ad283aa400af464c76d713c07ad', '33030303', 'CLIENT'),
 ('Maxamed', 'Cabdi', 'cabdi@gmail.coschedule_ibfk_1m', '25d55ad283aa400af464c76d713c07ad', '303033030', 'CLIENT');
 
 
@@ -177,17 +177,12 @@ CREATE TABLE `bookings` (
   
   FOREIGN KEY (`scheduleId`) REFERENCES schedule(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`userId`) REFERENCES users(`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` ( `userId`, `bookedSeat`, `bookingCreated`,`scheduleId`) VALUES
-( 1, 'SE-1110', '2021-10-16 22:15:13',1),
-( 3, 'SE-1130', '2020-10-16 22:15:13',2),
-( 2, 'SE-1130', '2019-10-16 22:15:13',3),
-( 4, 'SE-1120', '2023-10-16 22:15:13',4);
 
 
 

@@ -60,7 +60,7 @@
                     driverId,
                     driverName,
                     employDate
-                    FROM bus JOIN driver ON bus.id = driverId GROUP BY bus.id';
+                    FROM bus JOIN driver ON bus.driverId = driver.id GROUP BY bus.id';
   $resultbusSql = mysqli_query($connection,$busSql);
   $arrBuses = array();
   if(mysqli_num_rows($resultbusSql))
@@ -69,12 +69,51 @@
   $busJson = json_encode($arrBuses);
   
   // BOOKING DATA  
-  // $bookingSql = 'SELECT * FROM booking;';
-  // $resultrouteSql = mysqli_query($connection,$bookingSql);
-  // $arrBooking = array();
-  // if(mysqli_num_rows($resultrouteSql))
-  //      while($row=mysqli_fetch_assoc($resultBookingSql))
-  //           $arrBooking[] = $row;
-  // $bookingJson = json_encode($arrUsers);
+  $bookingSql = "SELECT * from bookings";
+  $resultBookingSql = mysqli_query($connection,$bookingSql);
+  $arrBooking = array();
+  if(mysqli_num_rows($resultBookingSql))
+       while($row=mysqli_fetch_assoc($resultBookingSql))
+            $arrBooking[] = $row;
+  $bookingJson = json_encode($arrBooking);
+  
+ $mytickets = "select 
+                     bookings.id,
+                     scheduleId,
+                     start,
+                     finish,
+                     price,
+                     duration,
+                     bookedSeat,
+                     departureTime,
+                     departureDate
+                    from bookings join schedule on schedule.id = scheduleId join route on routeId = route.id where userId = '".$id."'";
+
+$ticket =  mysqli_query($connection,$mytickets); 
+ $ticketarr = array();
+ if(mysqli_num_rows($ticket))
+        while($row = mysqli_fetch_assoc($ticket))
+            $ticketarr[] = $row;
+        $ticketJson = json_encode($ticketarr); 
+
+        
+//DASHBOARD SUMMERY NUMBER OF THE TABLE LIST
+  $counting = "SELECT * from schedule";
+  $scheduleCountResult = mysqli_query($connection,$counting);
+  $schedulecount=mysqli_num_rows($scheduleCountResult);
+  
+  $book = "SELECT * from bookings";
+  $bookCountResult = mysqli_query($connection,$book);
+  $bookcount=mysqli_num_rows($bookCountResult );
+  
+  $user = "SELECT * from users";
+  $userCountResult = mysqli_query($connection,$user);
+  $usercount=mysqli_num_rows($userCountResult);
+  
+  $bus = "SELECT * from bus";
+  $busCountResult = mysqli_query($connection,$bus);
+  $buscount=mysqli_num_rows($busCountResult);
+  
+  
   
 ?>

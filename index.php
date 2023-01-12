@@ -31,6 +31,7 @@
   $routeDate = json_decode($routeJson);
   $userData = json_decode($userJson);
   $scheduleData = json_decode($scheduleJson);
+  
   ?>
   <body>
     <div class="addNew">
@@ -73,6 +74,7 @@
              <input type="hidden" name="id" class="updateId"/>
              <input type="date" placeholder=" Pick Date *"  name="departureDate"/>
              <input type="time"  name="departureTime" placeholder=" Pick time *" />
+            <label for="route">Select Route</label>
             <select id="route" name="routeId">
              <?php 
              foreach($routeDate as $data){
@@ -151,9 +153,9 @@
               >
             </li>
             <li>
-              <a href="./routePage.php">
+              <a href="./bookingPage.php">
                 <img src="./image/account.svg" alt="accountbank" />
-                Routes</a
+                Booking</a
               >
             </li>
             <!-- <li>
@@ -165,25 +167,25 @@
           </ul>
         </div>
         
-        <a href="./login.php" class="exit"> Exist<img src="./image/exit.svg" alt="exit"></a>
+        <a href="./authentication/logout.php" class="exit"> Logout<img src="./image/exit.svg" alt="exit"></a>
       </div>
       <div class="dashboard__content" >
         <div class="dashboard__summary">
             <div class="dashboard__summary__box">
                 <h1>total users</h1>
-                <h1> 555 </h1>
+                <h1><?php echo $usercount ?></h1>
             </div>
             <div class="dashboard__summary__box">
-                <h1>total users</h1>
-                <h1>55</h1>
+                <h1>total buses</h1>
+                <h1><?php echo $buscount;?></h1>
             </div>
             <div class="dashboard__summary__box">
                 <h1>total schedule</h1>
-                 <h1>555</h1>
+                 <h1><?php echo $schedulecount?></h1>
             </div>
             <div class="dashboard__summary__box">
                 <h1>total Booking</h1>
-                <h1>100</h1>
+                <h1><?php echo $bookcount?></h1>
             </div>
         </div>
         
@@ -215,7 +217,7 @@
               </h4>
               <div class="card__details">
                 <ul>
-                  <li><?php echo $id;?> seat avaiable</li>
+                  <li><?php echo $id;?> scheduleId </li>
                   <li>Up to 30 people</li>
                   <li>Free wifi</li>
                   <li>
