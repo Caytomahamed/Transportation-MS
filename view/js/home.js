@@ -198,9 +198,9 @@ bookingBtn &&
       const priceValue = parent.querySelector('.card__price-value').innerHTML;
       const price = priceValue.slice(1, priceValue.length);
 
-      console.log(price, scheduleId);
+      console.log(`$${price}`, scheduleId);
       document.querySelector('.scheduleId').value = scheduleId;
-      document.querySelector('.price__card').value = `$${price}`;
+      document.querySelector('.price__card').value = `$ ${price}`;
     });
   });
 

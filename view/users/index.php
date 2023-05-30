@@ -1,8 +1,14 @@
 <?php
- require "./includes/connection.php";
- require "./authentication/session.php";
- 
- confirm_logged_in();
+require "../../include/session.inc.php";
+
+confirm_logged_in();
+
+include "../../include/autoloader.inc.php";
+
+$users = UserController::getUserById($_SESSION['MEMBER_ID']);
+$userId= $users[0]["id"];
+$userPhone = $users[0]["phone"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +17,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./css/home.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="./css/header.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="./css/card.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="./css/button.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="./css/footer.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="./css/ticket.css?v=<?php echo time(); ?>" />
-      <link rel="stylesheet" href="./css/alertmsg.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/home.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/header.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/card.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/button.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/footer.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/ticket.css?v=<?php echo time(); ?>" />
+      <link rel="stylesheet" href="../css/alertmsg.css?v=<?php echo time(); ?>" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -31,15 +37,12 @@
       </div>
     </div> -->
 
-    <?php 
-     include("./includes/header.php");
-     include "./authentication/user.php";
-     require "./getJson.php";
-     require "./booknow.php";
-     $scheduleData = json_decode($scheduleJson);
-     $userData = json_decode($userJson);
+<?php
+include "../include/header.php";
+include "../../controller/scheduleController.php";
+require "../../include/booking.inc.php";
 
-    ?>
+?>
     <div class="model">
       <div class="ticket">
         <h1 class="ticket__title">Your Ticket(Hargeisa To Burco)</h1>
@@ -71,7 +74,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="checkout__modal">
       <div class="checkout">
         <span class="checkout__close">&times;</span>
@@ -80,27 +83,19 @@
           <h1 class="checkout__title">Enter your payment detail</h1>
           <p>
              Please enter your account ID and the price of your travelling
-            amout 
+            amout
           </p>
           <form method="POST">
             <input type="hidden" class="scheduleId" name="scheduleId" name="id">
-            <input type="hidden" class="userId" name="userId" name="id"  
-            value="<?php 
-              foreach($userData as $data){
-              $user = get_object_vars($data);
-              echo $user['id'];                }
-            ?>">
+            <input type="hidden" class="userId" name="userId" name="id"
+            value="<?php echo $userId?>">
             <label for="number">
               <input
                 type="number"
                 name="phone"
                 id="number"
-                value="<?php 
-                foreach($userData as $data){
-                  $user = get_object_vars($data);
-                  echo $user['phone'];                }
-                ?>"
-                placeholder="Enter acount ID number "
+                value="<?php echo $userPhone?>"
+             placeholder="Enter acount ID number "
               />
             </label>
             <label for="number">
@@ -120,35 +115,37 @@
 
     <section class="home">
       <div class="row">
-        <?php 
-         foreach($scheduleData as $schedule) {
-          $card = get_object_vars($schedule); 
-            $id = $card["id"];
-            $departureDate=$card['departureDate'];
-            $departureTime = $card["departureTime"];
-            $price = $card["price"];
-            $start = $card["start"];
-            $finish = $card["finish"];
-            $duration = $card["duration"];
+<?php
+$scheduleData = json_decode(ScheduleController::getAllschedule());
 
-          ?> 
-       
-          <div class="col-1-of-3" data-id="<?php echo $id;?>" ">
+foreach ($scheduleData as $schedule) {
+    $card = get_object_vars($schedule);
+    $id = $card["id"];
+    $departureDate = $card['departureDate'];
+    $departureTime = $card["departureTime"];
+    $price = $card["price"];
+    $start = $card["start"];
+    $finish = $card["finish"];
+    $duration = $card["duration"];
+
+    ?>
+
+          <div class="col-1-of-3" data-id="<?php echo $id; ?>" ">
           <div class="card">
             <div class="card__side card__side--front">
               <div class="card__picture card__picture--1">&nbsp;</div>
               <h4 class="card__heading">
                 <span class="card__heading-span card__heading-span--1"
-                  ><?php echo $start. " TO " . $finish?></span
+                  ><?php echo $start . " TO " . $finish ?></span
                 >
               </h4>
               <div class="card__details">
                 <ul>
-                  <li><?php echo $id;?> seat avaiable</li>
+                  <li><?php echo $id; ?> seat avaiable</li>
                   <li>Up to 30 people</li>
                   <li>Free wifi</li>
-                  <li> <?php echo date("Y-m-d", strtotime($departureDate)) ." at " . $departureTime;?></li>
-                  <li>Duration : <?php echo $duration;?> hours</li>
+                  <li> <?php echo date("Y-m-d", strtotime($departureDate)) . " at " . $departureTime; ?></li>
+                  <li>Duration : <?php echo $duration; ?> hours</li>
                 </ul>
               </div>
             </div>
@@ -156,19 +153,19 @@
               <div class="card__cta">
                 <div class="card__price-box">
                   <p class="card__price-only">Only</p>
-                  <p class="card__price-value">$<?php echo $price;?></p>
+                  <p class="card__price-value">$<?php echo $price; ?></p>
                 </div>
                 <a href="#popup" class="btn btn--white bookingBtn">Book now!</a>
               </div>
             </div>
           </div>
         </div>
-       <?php  }
-        ?>
+       <?php }
+?>
       </div>
     </section>
-    <?php include("./includes/footer.php");?>
-    
-    <script src="./js/home.js"></script>
+    <?php include "../include/footer.php";?>
+
+    <script src="../js/home.js"></script>
   </body>
 </html>

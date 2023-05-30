@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register page</title>
-    <link rel="stylesheet" href="../css/register.css" />
+    <link rel="stylesheet" href="./css/register.css" />
   </head>
   <body>
     <div class="login__form">
       <div class="login__form__logo">
         <img src="../image/logo.png" alt="no logo" />
       </div>
-      <form method="POST" action="registerUser.php" >
+      <form method="POST" action="../include/register.inc.php" >
         <h1>Create New Account</h1>
-        <p>Already A Member? <a href="./login.php">Log in</a></p>
+        <p>Already A Member? <a href="./loginView.php">Log in</a></p>
 
         <fieldset>
           <label for="firstname">

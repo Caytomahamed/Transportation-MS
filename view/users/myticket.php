@@ -5,66 +5,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My ticket</title>
-    <link rel="stylesheet" href="./css/header.css" />
-    <link rel="stylesheet" href="./css/card.css" />
-    <link rel="stylesheet" href="./css/button.css" />
-    <link rel="stylesheet" href="./css/ticket.css" />
-    <link rel="stylesheet" href="./css/cleintdashboard.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/card.css" />
+    <link rel="stylesheet" href="../css/button.css" />
+    <link rel="stylesheet" href="../css/ticket.css" />
+    <link rel="stylesheet" href="../css/cleintdashboard.css?v=<?php echo time(); ?>" />
 </head>
- <?php require "./getJson.php";
-  require "./authentication/user.php";
-  $mytickets = json_decode($ticketJson);
-  $userData = json_decode($userJson);
- ?>
+ <?php
+require "../../include/session.inc.php";
+
+confirm_logged_in();
+
+include "../../include/autoloader.inc.php";
+
+$user = UserController::getUserById($_SESSION['MEMBER_ID']);
+$userId = $user[0]["id"];
+$username = $user[0]["firstname"];
+$lastname = $user[0]["lastname"];
+
+
+?>
 <body>
       <section class="dashboard">
       <div class="dashboard__sidebar">
         <div class="dashboard__profile" style="padding-top:;">
           <div class="dashboard__profile__image">
-             <?php foreach($userData as $user){ 
-            $data = get_object_vars($user);
-             if($data["imageUrl"]){ ?> 
-             <img src="./uploads/IMG-user<?=$data["imageUrl"]?>" alt="profile">
-            <?php } else { ?>
-              <img src="./uploads/IMG-user.svg" alt="profile" />
-            <?php } ?>  
+              <img src="../uploads/IMG-user.svg" alt="profile" />
           </div>
           <p>Wellcome back</p>
-          <p><?php echo $data["email"];?></p>
-            <h3><?php echo $data["firstname"] . " " . $data["lastname"];?></h3>
-          <?php } ?>
+          <p><?php echo $username . " " . $lastname;?> </p>
         </div>
         <div class="dashboard__menu">
           <ul>
             <li>
               <a href="./clientdashboard.php" >
-                <img src="./image/dashboard-icon.svg" alt="dashboard" /> dashboard</a
+                <img src="../image/dashboard-icon.svg" alt="dashboard" /> dashboard</a
               >
             </li>
             <li  class="active">
               <a href="#" >
-                <img src="./image/myticket.svg" alt="myticket" /> myticket</a
+                <img src="../image/myticket.svg" alt="myticket" /> myticket</a
               >
             </li>
           </ul>
         </div>
-         <a href="./home.php" class="exit"> Exist<img src="./image/exit.svg" alt="exit"></a>
+         <a href="./index.php" class="exit">Go Home<img src="../image/exit.svg" alt="exit"></a>
       </div>
       <div class="dashboard__content" style="height:auto;">
        <section class="profile" style="padding-bottom:5rem;">
        <h1 style="font-size: 30px; text-align: center; padding-top:3rem; color:black;">My tickets</h1>
-        <?php 
-        foreach($mytickets as $data) {
-          $myticket = get_object_vars($data);
-          $bookId = $myticket["id"];
-          $start = $myticket["start"];
-          $price = $myticket["price"];
-          $finish = $myticket["finish"];
-          $duration =  $myticket["duration"];
-          $bookedSeat =  $myticket["bookedSeat"];
-          $departureTime =  $myticket["departureTime"];
-          $departureDate =  $myticket["departureDate"];
-          ?>
+<?php
+$mytickets = ScheduleController::getYourTicket($userId);
+// print_r($mytickets);
+foreach ($mytickets as $data) {
+    $bookId = $data["id"];
+    $start = $data["start"];
+    $price = $data["price"];
+    $finish = $data["finish"];
+    $duration = $data["duration"];
+    $bookedSeat = $data["bookedSeat"];
+    $departureTime = $data["departureTime"];
+    $departureDate = $data["departureDate"];
+    ?>
       <div class="mytickets" data-id="1">
         <div class="myticket">
           <div class="col-1-of-3">
@@ -82,7 +84,7 @@
                     <li>Up to 30 people</li>
                     <li>Free wifi</li>
                     <li>Free water</li>
-                    <li>Duration: <?php echo $duration?> hours</li>
+                    <li>Duration: <?php echo $duration ?> hours</li>
                   </ul>
                 </div>
               </div>
@@ -90,7 +92,7 @@
                 <div class="card__cta">
                   <div class="card__price-box">
                     <p class="card__price-only">Only</p>
-                    <p class="card__price-value">$<?php echo $price?></p>
+                    <p class="card__price-value">$<?php echo $price ?></p>
                   </div>
                   <a href="#popup" class="btn btn--white cancleBtn">Cancle!</a>
                 </div>
@@ -164,15 +166,15 @@
               <table class="booking-table">
                 <tr>
                   <th>From TO </th>
-                  <td><?php echo $start." to ". $finish;?></td>
+                  <td><?php echo $start . " to " . $finish; ?></td>
                 </tr>
                 <tr>
                   <th>When</th>
-                  <td><?php echo $departureDate."at". $departureTime;?></td>
+                  <td><?php echo $departureDate . "at" . $departureTime; ?></td>
                 </tr>
                 <tr>
                   <th>Price</th>
-                  <td>$<?php echo $price;?></td>
+                  <td>$<?php echo $price; ?></td>
                 </tr>
                 <tr>
                   <th>Booked by</th>
@@ -180,7 +182,7 @@
                 </tr>
                 <tr>
                   <th>Seat</th>
-                  <td><?php echo $bookedSeat;?></td>
+                  <td><?php echo $bookedSeat; ?></td>
                 </tr>
               </table>
               <div class="ticket_frame ticket_frame--2"></div>
@@ -188,14 +190,14 @@
           </div>
         </div>
         </div>
-  
+
         <?php }
-       ?> 
+?>
        </section>
      </div>
     </section>
 
-    
-    <script src="./js/home.js"></script>
+
+    <script src="../js/home.js"></script>
 </body>
 </html>

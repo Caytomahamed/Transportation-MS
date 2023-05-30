@@ -1,14 +1,14 @@
 <?php
   include "./includes/connection.php";
-  if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-    
+  if(!isset($_SESSION))
+    {
+        session_start();
+    }
+
   $id = $_SESSION["MEMBER_ID"];
-  
-    // SCHEDULE DATA  
-    $rtSql = "SELECT 
+
+    // SCHEDULE DATA
+    $rtSql = "SELECT
             schedule.id,
             departureDate,
             departureTime,
@@ -16,9 +16,9 @@
             start,
             finish,
             duration
-            from schedule  
-            join route ON route.id=routeId  
-            join bus ON bus.id=busId 
+            from schedule
+            join route ON route.id=routeId
+            join bus ON bus.id=busId
             ORDER BY departureDate DESC";
     $resultrtSql = mysqli_query($connection, $rtSql);
     $arr = array();
@@ -26,8 +26,8 @@
         while($row = mysqli_fetch_assoc($resultrtSql))
             $arr[] = $row;
     $scheduleJson = json_encode($arr);
- 
-  // ROUTES DATA   
+
+  // ROUTES DATA
   $routSql = 'SELECT * FROM route;';
   $resultrouteSql = mysqli_query($connection,$routSql);
   $arrRoutes = array();
@@ -35,7 +35,7 @@
        while($row=mysqli_fetch_assoc($resultrouteSql))
             $arrRoutes[] = $row;
   $routeJson = json_encode($arrRoutes);
-  
+
   // USERDATA
   $usersSql = 'SELECT * FROM users;';
   $resultrouteSql = mysqli_query($connection,$usersSql);
@@ -44,7 +44,7 @@
        while($row=mysqli_fetch_assoc($resultrouteSql))
             $arrUsers[] = $row;
   $usersJson = json_encode($arrUsers);
-  
+
   // DRIVER DATA
   $driverSql = 'SELECT * FROM driver';
   $resultdriverSql = mysqli_query($connection,$driverSql);
@@ -53,7 +53,7 @@
        while($row=mysqli_fetch_assoc( $resultdriverSql ))
             $arrDriver[] = $row;
   $driverJson = json_encode($arrDriver);
-  
+
   // BUS DATA
   $busSql = 'SELECT bus.id,
                     busno,
@@ -67,8 +67,8 @@
        while($row=mysqli_fetch_assoc($resultbusSql))
             $arrBuses[] = $row;
   $busJson = json_encode($arrBuses);
-  
-  // BOOKING DATA  
+
+  // BOOKING DATA
   $bookingSql = "SELECT * from bookings";
   $resultBookingSql = mysqli_query($connection,$bookingSql);
   $arrBooking = array();
@@ -76,8 +76,8 @@
        while($row=mysqli_fetch_assoc($resultBookingSql))
             $arrBooking[] = $row;
   $bookingJson = json_encode($arrBooking);
-  
- $mytickets = "select 
+
+ $mytickets = "select
                      bookings.id,
                      scheduleId,
                      start,
@@ -89,31 +89,31 @@
                      departureDate
                     from bookings join schedule on schedule.id = scheduleId join route on routeId = route.id where userId = '".$id."'";
 
-$ticket =  mysqli_query($connection,$mytickets); 
+$ticket =  mysqli_query($connection,$mytickets);
  $ticketarr = array();
  if(mysqli_num_rows($ticket))
         while($row = mysqli_fetch_assoc($ticket))
             $ticketarr[] = $row;
-        $ticketJson = json_encode($ticketarr); 
+        $ticketJson = json_encode($ticketarr);
 
-        
+
 //DASHBOARD SUMMERY NUMBER OF THE TABLE LIST
   $counting = "SELECT * from schedule";
   $scheduleCountResult = mysqli_query($connection,$counting);
   $schedulecount=mysqli_num_rows($scheduleCountResult);
-  
+
   $book = "SELECT * from bookings";
   $bookCountResult = mysqli_query($connection,$book);
   $bookcount=mysqli_num_rows($bookCountResult );
-  
+
   $user = "SELECT * from users";
   $userCountResult = mysqli_query($connection,$user);
   $usercount=mysqli_num_rows($userCountResult);
-  
+
   $bus = "SELECT * from bus";
   $busCountResult = mysqli_query($connection,$bus);
   $buscount=mysqli_num_rows($busCountResult);
-  
-  
-  
+
+
+
 ?>
