@@ -5,7 +5,7 @@
     $scheduleId = $_POST['scheduleId']; // schedule Id
     $userId = $_POST['userId']; // schedule Id
 
-    $booking = BookController::createBooking($userId,$bookingId);
+    $booking = BookController::createBooking($userId,$scheduleId);
     if(count($booking) == 0){
     echo "
     <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>

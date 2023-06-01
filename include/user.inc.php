@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['update']) && isset($_FILES["image"])) {
+if (isset($_POST['update'])) {
     include "./autoloader.inc.php";
     $id = $_POST['id'];
     $firstname = $_POST["firstname"];
@@ -8,21 +8,69 @@ if (isset($_POST['update']) && isset($_FILES["image"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $phone = $_POST["phone"];
-    $imageUrl = null;
 
-    $user = UserController::updateUser($id, $firstname, $lastname, $email, $password, $phone, $imageUrl);
+    $file = $_FILES["image"];
 
-    if (!$user) {?>
-  <script type="text/javascript">
-   alert("The User already exits Please Try another one");
-      window.location = "../view/loginView.php";
-   </script>
-<?php } else {?>
-   <script type="text/javascript">
-      window.location = "../view/clientdashboard.php";
-   </script>
-<?php }
+    $fileName = $_FILES["image"]["name"];
+    $fileTmpName = $_FILES["image"]["tmp_name"];
+    $fileSize = $_FILES["image"]["size"];
+    $fileError = $_FILES["image"]["error"];
+    $fileType = $_FILES["image"]["type"];
 
+    $fileExtension = explode(".", $fileName);
+    $fileActaulExtension = strtolower(end($fileExtension));
+
+    $allowed = array("jpg", "jpeg", "png");
+
+    if (in_array($fileActaulExtension, $allowed)) {
+        if ($fileError === 0) {
+
+            if ($fileSize < 1_000_000) {
+                $newFileName = uniqid("",true)."image".".".$fileActaulExtension;
+                $fileDestination ="../view/uploads/".$newFileName;
+                $imageUrl = strval($newFileName);
+
+                $user = UserController::updateUser($id, $firstname, $lastname, $email, $password, $phone, $imageUrl);
+
+                move_uploaded_file($fileTmpName,$fileDestination);
+
+                if (!$user) {?>
+                <script type="text/javascript">
+                alert("The User already exits Please Try another one");
+                    window.location = "../view/users/clientdashboard.php";
+                </script>
+                <?php } else {?>
+                <script type="text/javascript">
+                    window.location = "../view/users/clientdashboard.php";
+                </script>
+                <?php }
+
+            } else {
+                ?>
+            <script type="text/javascript">
+            alert("Your not allowed to appload this Type of file! ");
+                window.location = "../view/users/clientdashboard.php";
+            </script>
+            <?php
+}
+
+        } else {
+            ?>
+        <script type="text/javascript">
+            alert("Your not allowed to uppload there is Error!");
+               window.location = "../view/users/clientdashboard.php";
+            </script>
+        <?php
+}
+
+    } else {
+        ?>
+    <script type="text/javascript">
+      alert("Your not allowed to uppload this Type of file!");
+          window.location = "../view/users/clientdashboard.php";
+     </script>
+    <?php
+}
 }
 
 if (isset($_POST['add'])) {

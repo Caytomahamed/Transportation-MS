@@ -200,7 +200,7 @@ bookingBtn &&
 
       console.log(`$${price}`, scheduleId);
       document.querySelector('.scheduleId').value = scheduleId;
-      document.querySelector('.price__card').value = `$ ${price}`;
+      document.querySelector('.price__card').value = `$${price}`;
     });
   });
 

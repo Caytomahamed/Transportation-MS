@@ -9,6 +9,7 @@ $user = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId = $user[0]["id"];
 $username = $user[0]["firstname"];
 $lastname = $user[0]["lastname"];
+$userImage = $user[0]["imageUrl"];
 
 ?>
 
@@ -25,13 +26,18 @@ $lastname = $user[0]["lastname"];
   </head>
   <body>
     <section class="dashboard">
-      <div class="dashboard__sidebar"  style="padding-top:4rem;">
+      <div class="dashboard__sidebar"  style="padding-top:4rem; margin-top: 0rem;">
         <div class="dashboard__profile">
           <div class="dashboard__profile__image">
-             <img src="../uploads/IMG-user.svg" alt="profile" />
+            <?php
+              if(!$userImage){
+                $userImage = "IMG-user.svg";
+              }
+              echo '<img src="../uploads/'.$userImage.'" alt="profile" />';
+            ?>
           </div>
           <p>Wellcome back</p>
-          <p><?php echo $username . " " . $lastname; ?></p>
+          <h3><?php echo $username . " " . $lastname; ?></h3>
         </div>
         <div class="dashboard__menu">
           <ul>
@@ -61,11 +67,11 @@ foreach ($user as $data) {
 }
 ?>
 
-        <form method="POST">
+        <form method="POST" action="../../include/user.inc.php" enctype="multipart/form-data">
         <h1>Update Your Account</h1>
 
         <fieldset>
-          <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+          <input type="hidden" name="id" value="<?php echo $userId; ?>"/>
           <label for="firstname">
             <img src="../image/user.svg" alt="user" />
             <input type="text" name="firstname" id="firstname" autocomplete="off" placeholder="Enter firstname *" value='<?php echo $firstname ?>'/>

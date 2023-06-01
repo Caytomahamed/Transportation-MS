@@ -8,6 +8,9 @@ include "../../include/autoloader.inc.php";
 $users = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId= $users[0]["id"];
 $userPhone = $users[0]["phone"];
+$userImage = $users[0]["imageUrl"];
+
+
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +42,6 @@ $userPhone = $users[0]["phone"];
 
 <?php
 include "../include/header.php";
-include "../../controller/scheduleController.php";
 require "../../include/booking.inc.php";
 
 ?>
@@ -100,11 +102,11 @@ require "../../include/booking.inc.php";
             </label>
             <label for="number">
               <input
-                type="number"
+                type="text"
                 name="price"
                 class="price__card"
                 placeholder="Enter the amout"
-                readonly
+                value=""
               />
             </label>
             <button type="submit" class="btn btn--green buy__now" name="buynow">BOOK NOW!</button>
@@ -165,7 +167,6 @@ foreach ($scheduleData as $schedule) {
       </div>
     </section>
     <?php include "../include/footer.php";?>
-
-    <script src="../js/home.js"></script>
+     <script src="../js/home.js?v=<?php echo time();?>" ></script>
   </body>
 </html>

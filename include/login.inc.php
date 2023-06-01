@@ -6,7 +6,6 @@ session_start();
 $email = $_POST["email"];
 $password = trim($_POST["password"]);
 $hashedPassword = MD5($password);
-echo $hashedPassword;
 
 $users = UserController::login($email, $hashedPassword);
 

@@ -6,7 +6,12 @@
         <a href="../../include/logout.inc.php">Logout</a>
         <div class="header__porfile">
             <div class="header__porfile__box">
-                <img src="../uploads/IMG-user.svg" alt="user image" />
+            <?php
+            if (!$userImage) {
+                $userImage = "IMG-user.svg";
+            }
+            echo '<img src="../uploads/' . $userImage . '" alt="profile" />';
+            ?>
             </div>
            <a lass="profileBtn" href="../users/clientdashboard.php">Profile</a></button>
         </div>

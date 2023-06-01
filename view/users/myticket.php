@@ -22,18 +22,24 @@ $user = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId = $user[0]["id"];
 $username = $user[0]["firstname"];
 $lastname = $user[0]["lastname"];
-
+$userPhone = $user[0]["phone"];
+$userImage = $user[0]["imageUrl"];
 
 ?>
 <body>
       <section class="dashboard">
       <div class="dashboard__sidebar">
-        <div class="dashboard__profile" style="padding-top:;">
+        <div class="dashboard__profile" style="padding-top:">
           <div class="dashboard__profile__image">
-              <img src="../uploads/IMG-user.svg" alt="profile" />
+            <?php
+            if (!$userImage) {
+                $userImage = "IMG-user.svg";
+            }
+            echo '<img src="../uploads/' . $userImage . '" alt="profile" />';
+            ?>
           </div>
           <p>Wellcome back</p>
-          <p><?php echo $username . " " . $lastname;?> </p>
+          <h3><?php echo $username . " " . $lastname; ?> </h3>
         </div>
         <div class="dashboard__menu">
           <ul>

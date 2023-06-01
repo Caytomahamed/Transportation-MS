@@ -212,12 +212,7 @@ foreach ($users as $user) {
       </table>
 
       </div>
-
-
-
     </section>
-
     <script src="../js/home.js?v=<?php echo time(); ?>" ></script>
-
   </body>
 </html>
