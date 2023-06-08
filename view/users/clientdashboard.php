@@ -3,7 +3,7 @@ require "../../include/session.inc.php";
 
 confirm_logged_in();
 
-include "../../include/autoloader.inc.php";
+require_once "../../include/autoloader.inc.php";
 
 $user = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId = $user[0]["id"];
@@ -23,18 +23,26 @@ $userImage = $user[0]["imageUrl"];
     <link rel="stylesheet" href="../css/cleintdashboard.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/register.css" />
     <link rel="stylesheet" href="../css/alertmsg.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/header.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/footer.css?v=<?php echo time(); ?>" />
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
+    <?php include "../include/header.php"?>
     <section class="dashboard">
       <div class="dashboard__sidebar"  style="padding-top:4rem; margin-top: 0rem;">
+        <div>
         <div class="dashboard__profile">
           <div class="dashboard__profile__image">
             <?php
-              if(!$userImage){
-                $userImage = "IMG-user.svg";
-              }
-              echo '<img src="../uploads/'.$userImage.'" alt="profile" />';
-            ?>
+if (!$userImage) {
+    $userImage = "IMG-user.svg";
+}
+echo '<img src="../uploads/' . $userImage . '" alt="profile" />';
+?>
           </div>
           <p>Wellcome back</p>
           <h3><?php echo $username . " " . $lastname; ?></h3>
@@ -53,8 +61,9 @@ $userImage = $user[0]["imageUrl"];
             </li>
           </ul>
         </div>
+      </div>
 
-        <a href="./index.php" class="exit">Home<img src="../image/exit.svg" alt="exit"></a>
+        <a href="./index.php" class="exit"></a>
       </div>
       <div class="dashboard__content">
 <?php
@@ -101,6 +110,7 @@ foreach ($user as $data) {
       </form>
       </div>
     </section>
+    <?php include "../include/footer.php"?>
     <script src="../js/home.js">
     </script>
   </body>

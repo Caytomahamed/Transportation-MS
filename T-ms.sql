@@ -86,12 +86,12 @@ INSERT INTO `driver` ( `driverName`, `employDate`) VALUES
 --
 -- Table structure for table `bus`
 --
-	
+
 CREATE TABLE `bus` (
    `id` int NOT NULL  primary key auto_increment,
   `busno` varchar(255) NOT NULL,
   `driverId` int NOT NULL,
-  
+
   FOREIGN KEY  ( `driverId` ) REFERENCES driver( `id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -174,7 +174,7 @@ CREATE TABLE `bookings` (
   `bookedSeat` varchar(100) NOT NULL,
    `booked` boolean default(0),
   `bookingCreated` datetime DEFAULT CURRENT_TIMESTAMP,
-  
+
   FOREIGN KEY (`scheduleId`) REFERENCES schedule(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`userId`) REFERENCES users(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

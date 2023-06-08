@@ -12,15 +12,19 @@ confirm_logged_in();
     <title>Document</title>
      <link rel="stylesheet" href="../css/home.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/header.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="../css/menu.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/card.css" />
     <link rel="stylesheet" href="../css/button.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/footer.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/ticket.css" />
     <link rel="stylesheet" href="../css/cleintdashboard.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/index.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/alertmsg.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/table.css?v=<?php echo time(); ?>" />
-
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
 
   <?php
@@ -31,15 +35,20 @@ $user = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId = $user[0]["id"];
 $username = $user[0]["firstname"];
 $lastname = $user[0]["lastname"];
+$userImage = $user[0]["imageUrl"];
 
-$usercount = 1;
-$buscount = 100;
-$buscount = 100;
-$bookcount = 100;
+$usercount = UserController::getToCountUser();
+$buscount = BusController::getToCountBus();
+$bookcount = BookController::getToCountBooking();
 $schedulecount = ScheduleController::getToCountSchedule();
 
 ?>
   <body>
+    <?php
+include "../include/adminHeader.php";
+include "../include/adminMenu.php";
+?>
+
     <div class="addNew">
       <div class="popup-form">
         <span class="addNew__close">&times;</span>
@@ -64,15 +73,16 @@ $schedulecount = ScheduleController::getToCountSchedule();
       <div class="popup-form">
         <span class="addNew__close edite__close">&times;</span>
         <div class="form__New_transport">
-          <form method="POST" >
+        <form method="POST" enctype="multipart/form-data" >
         <fieldset>
             <legend> Update User</legend>
              <input type="hidden" name="id" class="updateId"/>
-              <input type="text" placeholder="Enter firstname*"  name="firstname"/>
-             <input type="text" placeholder=" Enter lastname *"  name="lastname"/>
-             <input type="email" placeholder="Enter your email*"  name="email"/>
-             <input type="number" placeholder=" Enter your phone *"  name="phone"/>
-             <input type="password"  name="password" placeholder="Ebter your password*" />
+              <input type="text" placeholder="Enter firstname*"  name="firstname" class="firstname" value=""/>
+             <input type="text" placeholder=" Enter lastname *"  name="lastname" class="lastname"/>
+             <input type="email" placeholder="Enter your email*"  name="email" class="email" />
+             <input type="text" placeholder=" Enter your phone *"  name="phone" class="phone" value=""/>
+             <input type="text"  name="password" placeholder="Ebter your password*" class="password"/>
+             <input type="file"  name="image" class="password"/>
             </fieldset>
         <input type="submit" value="Update" name="updateAdmin" class="updateSchedule"/>
       </form>
@@ -99,15 +109,21 @@ $schedulecount = ScheduleController::getToCountSchedule();
     </div>
 
     <section class="dashboard">
-      <div class="dashboard__sidebar">
+            <div class="dashboard__sidebar " style="width: 180px;">
+<div>
         <div class="dashboard__profile">
           <div class="dashboard__profile__image">
-             <img src="../uploads/IMG-user.svg" alt="profile" />
+<?php
+if (!$userImage) {
+    $userImage = "IMG-user.svg";
+}
+echo '<img src="../uploads/' . $userImage . '" alt="profile" />';
+?>
           </div>
           <p>Wellcome back</p>
-            <h3><?php echo $username . " " . $lastname; ?></h3>
+            <h3><?php echo $username; ?></h3>
         </div>
-          <div class="dashboard__menu">
+      <div class="dashboard__menu">
           <ul>
             <li class="active">
               <a href="./dashboard.php" >
@@ -126,27 +142,22 @@ $schedulecount = ScheduleController::getToCountSchedule();
               >
             </li>
             <li>
-              <a href="./busPage.php">
+              <a href="./buses.php">
                 <img src="../image/account.svg" alt="accountbank" />
                 Bus</a
               >
             </li>
             <li>
-              <a href="./bookingPage.php">
+              <a href="./booking.php">
                 <img src="../image/account.svg" alt="accountbank" />
                 Booking</a
               >
             </li>
-            <!-- <li>
-              <a href="./myaccount.php">
-                <img src="../image/account.svg" alt="accountbank" />
-                Booking</a
-              >
-            </li> -->
           </ul>
         </div>
+</div>
 
-        <a href="./authentication/logout.php" class="exit"> Logout<img src="../image/exit.svg" alt="exit"></a>
+
       </div>
       <div class="dashboard__content" >
        <div class="dashboard__summary">
@@ -176,6 +187,7 @@ $schedulecount = ScheduleController::getToCountSchedule();
            <th>id</th>
            <th>firstname </th>
            <th>lastname</th>
+           <th>profile image</th>
            <th>email</th>
            <th>password </th>
            <th>phone</th>
@@ -191,13 +203,22 @@ foreach ($users as $user) {
     $email = substr($user["email"], 0, 12);
     $passwor = substr($user["password"], 0, 7);
     $phone = $user["phone"];
+    $image = $user["imageUrl"];
     $role = $user["role"];?>
             <tr data-id="<?php echo $id ?>">
             <td><?php echo $id; ?></td>
-            <td><?php echo $firstname; ?></td>
+            <td ><?php echo $firstname; ?></td>
             <td><?php echo $lastname; ?></td>
-            <td><?php echo $email; ?>..</td>
-            <td><?php echo $passwor; ?>...</td>
+            <td>
+<?php
+if (!$image) {
+    $image = "IMG-user.svg";
+}
+echo '<img src="../uploads/' . $image . '" alt="profile" class="users__image"/>';
+?>
+</td>
+            <td><?php echo $email;?></td>
+            <td><?php echo $passwor;?></td>
             <td><?php echo $phone; ?></td>
             <td><?php echo $role; ?></td>
             <td>
@@ -213,6 +234,9 @@ foreach ($users as $user) {
 
       </div>
     </section>
+    <?php include "../include/footer.php"?>
     <script src="../js/home.js?v=<?php echo time(); ?>" ></script>
+    <script src="../js/admin.js?v=<?php echo time(); ?>" ></script>
+    <script src="../js/menu.js?v=<?php echo time(); ?>" ></script>
   </body>
 </html>

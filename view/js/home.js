@@ -90,7 +90,6 @@ const addColorsTicket = (color, i) => {
 
 ///////////////////////////////////////////////////////////////
 /// APPLY
-
 // GIVE A RANDOM COLORS IN PICTURE , HEADING & BACK-SIDE-CARD
 cardBack.map((back, i) => {
   const color = getRandomColor();
@@ -132,13 +131,9 @@ window.onclick = function (event) {
 cancleTicket &&
   cancleTicket.forEach((el) => {
     el.addEventListener('click', () => {
-      console.log('canlce');
-      window.alert(' Are your to cancle this tickect? or wait 5s to cancle it');
       const tikect =
         el.parentElement.parentElement.parentElement.parentElement.parentElement
           .parentElement;
-
-      closeModel(tikect);
     });
   });
 

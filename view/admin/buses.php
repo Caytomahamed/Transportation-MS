@@ -21,7 +21,10 @@ confirm_logged_in();
     <link rel="stylesheet" href="../css/index.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/alertmsg.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="../css/table.css?v=<?php echo time(); ?>" />
-
+ <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
 
   <?php
@@ -32,15 +35,16 @@ $user = UserController::getUserById($_SESSION['MEMBER_ID']);
 $userId = $user[0]["id"];
 $username = $user[0]["firstname"];
 $lastname = $user[0]["lastname"];
+$userImage = $user[0]["imageUrl"];
 
-$usercount = 1;
-$buscount = 100;
-$buscount = 100;
-$bookcount = 100;
-$schedulecount = 100;
+$usercount = UserController::getToCountUser();
+$buscount = BusController::getToCountBus();
+$bookcount = BookController::getToCountBooking();
+$schedulecount = ScheduleController::getToCountSchedule();
 
 ?>
   <body>
+    <?php include "../include/adminHeader.php"?>
     <div class="addNew">
       <div class="popup-form">
         <span class="addNew__close">&times;</span>
@@ -119,33 +123,39 @@ foreach ($driver as $driver) {
 
     <section class="dashboard">
       <div class="dashboard__sidebar">
+        <div>
         <div class="dashboard__profile">
           <div class="dashboard__profile__image">
-          <img src="../uploads/IMG-user.svg" alt="profile" />
+<?php
+if (!$userImage) {
+    $userImage = "IMG-user.svg";
+}
+echo '<img src="../uploads/' . $userImage . '" alt="profile" />';
+?>
           </div>
           <p>Wellcome back</p>
-            <h3><?php echo $username . " " . $lastname; ?></h3>
+            <h3><?php echo $username; ?></h3>
         </div>
           <div class="dashboard__menu">
-          <ul>
+                <ul>
             <li class="active">
-              <a href="./index.php" >
+              <a href="./dashboard.php" >
                 <img src="../image/dashboard-icon.svg" alt="dashboard" /> dashboard</a
               >
             </li>
             <li>
-              <a href="./usersPage.php">
+              <a href="./users.php">
                 <img src="../image/myticket.svg" alt="myticket" /> Users</a
               >
             </li>
             <li>
-              <a href="./driverPage.php">
+              <a href="./drivers.php">
                 <img src="../image/account.svg" alt="accountbank" />
                 Drivers</a
               >
             </li>
             <li>
-              <a href="./busPage.php">
+              <a href="./buses.php">
                 <img src="../image/account.svg" alt="accountbank" />
                 Bus</a
               >
@@ -156,16 +166,9 @@ foreach ($driver as $driver) {
                 Booking</a
               >
             </li>
-            <!-- <li>
-              <a href="./myaccount.php">
-                <img src="../image/account.svg" alt="accountbank" />
-                Booking</a
-              >
-            </li> -->
           </ul>
         </div>
-
-        <a href="./authentication/logout.php" class="exit"> Logout<img src="../image/exit.svg" alt="exit"></a>
+        </div>
       </div>
       <div class="dashboard__content" >
        <div class="dashboard__summary">

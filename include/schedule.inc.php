@@ -6,7 +6,7 @@ if (isset($_POST['add'])) {
 
     $schedule = ScheduleController::createSchedule($departureDate, $departureTime, $routeId);
 
-    if (count($schedule) == 0) {
+    if (!$schedule) {
         echo "
     <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
         <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
@@ -47,7 +47,7 @@ if (isset($_POST['update'])) {
     $departureTime = $_POST['departureTime'];
 
     $schedule = ScheduleController::updateSchedule($departureDate, $departureTime, $routeId, $id);
-    if (count($schedule) == 0) {
+    if (!$schedule) {
         echo "
     <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
         <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
@@ -84,8 +84,8 @@ if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
     $schedule = ScheduleController::deleteSchedule($id);
-    
-    if (count($schedule) >= 1) {
+
+    if (count($schedule) || !$id) {
         echo "
     <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
         <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>

@@ -6,7 +6,7 @@ function myAutoLoader($className)
     $extension = ".php";
     $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 
-    $directories = array("model", "controller", "view", "include");
+    $directories = array("data", "app", "view", "include");
 
     // Config file
     require_once $baseDir . "include/config.inc.php";

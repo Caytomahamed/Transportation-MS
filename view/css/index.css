@@ -31,9 +31,6 @@ html {
   justify-content: space-around;
 }
 
-.dashboard {
-  overflow: scroll;
-}
 .dashboard__summary {
   display: flex;
   justify-content: space-between;
@@ -42,7 +39,8 @@ html {
   margin-bottom: 4rem;
 }
 .dashboard__summary__box {
-  background-color: var(---color-primary);
+  box-sizing: border-box;
+  border: 2px solid white;
   width: 18rem;
   font-size: 1.4rem;
   height: 10rem;
@@ -50,6 +48,7 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-transform: capitalize;
   padding: 1rem 0rem;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
@@ -135,13 +134,14 @@ html {
   display: block;
   margin-bottom: 8px;
 }
-.form__New_transport input[type="text"],
-.form__New_transport input[type="email"],
-.form__New_transport input[type="password"],
-.form__New_transport input[type="time"],
-.form__New_transport input[type="date"],
-.form__New_transport input[type="datetime-local"],
-.form__New_transport input[type="number"],
+.form__New_transport input[type='text'],
+.form__New_transport input[type='email'],
+.form__New_transport input[type='password'],
+.form__New_transport input[type='time'],
+.form__New_transport input[type='date'],
+.form__New_transport input[type='datetime-local'],
+.form__New_transport input[type='number'],
+.form__New_transport input[type='file'],
 .form__New_transport select {
   font-family: Arial, Helvetica, sans-serif;
   border: none;
@@ -158,9 +158,9 @@ html {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   margin-bottom: 22px;
 }
-.form__New_transport input[type="text"]:focus,
-.form__New_transport input[type="datetime-local"]:focus,
-.form__New_transport input[type="number"]:focus,
+.form__New_transport input[type='text']:focus,
+.form__New_transport input[type='datetime-local']:focus,
+.form__New_transport input[type='number']:focus,
 .form__New_transport select:focus {
   background: #d2d9dd;
 }
@@ -183,7 +183,7 @@ html {
   border-radius: 15px 15px 15px 0px;
 }
 
-.form__New_transport input[type="submit"] {
+.form__New_transport input[type='submit'] {
   position: relative;
   display: block;
   padding: 19px 39px 18px 39px;
@@ -198,6 +198,6 @@ html {
   border-width: 1px 1px 3px;
   margin-bottom: 10px;
 }
-.form__New_transport input[type="submit"]:hover {
+.form__New_transport input[type='submit']:hover {
   background: #2998ff;
 }

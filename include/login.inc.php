@@ -9,7 +9,15 @@ $hashedPassword = MD5($password);
 
 $users = UserController::login($email, $hashedPassword);
 
-if (count($users) > 0) {
+if (!$users) {
+    // If  there is no result render ->
+    ?> <script type="text/javascript">
+              alert("Username or Password Not Registered! Contact Your administrator.");
+              window.location = "../index.php";
+        </script>
+     <?php
+
+} else {
     foreach ($users as $user) {
         $_SESSION['MEMBER_ID'] = $user['id'];
         $_SESSION['fname'] = $user['firstname'];
@@ -21,20 +29,13 @@ if (count($users) > 0) {
              window.location = "../view/admin/dashboard.php"
         </script>
     <?php
-    } else {
+} else {
             ?>
         <script type="text/javascript">
             window.location = "../view/users"
         </script>
         <?php
-    }}
+}}
 
-} else {
-    // If  there is no result render ->
-    ?> <script type="text/javascript">
-              alert("Username or Password Not Registered! Contact Your administrator.");
-              window.location = "../index.php";
-        </script>
-     <?php
 }
 ?>

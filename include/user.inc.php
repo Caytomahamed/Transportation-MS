@@ -7,7 +7,8 @@ if (isset($_POST['update'])) {
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $phone = $_POST["phone"];
+    $phone = intval($_POST["phone"]);
+    $hashpassword = md5($password);
 
     $file = $_FILES["image"];
 
@@ -26,13 +27,13 @@ if (isset($_POST['update'])) {
         if ($fileError === 0) {
 
             if ($fileSize < 1_000_000) {
-                $newFileName = uniqid("",true)."image".".".$fileActaulExtension;
-                $fileDestination ="../view/uploads/".$newFileName;
+                $newFileName = uniqid("", true) . "image" . "." . $fileActaulExtension;
+                $fileDestination = "../view/uploads/" . $newFileName;
                 $imageUrl = strval($newFileName);
 
-                $user = UserController::updateUser($id, $firstname, $lastname, $email, $password, $phone, $imageUrl);
+                $user = UserController::updateUser($id, $firstname, $lastname, $email, $hashpassword, $phone, $imageUrl);
 
-                move_uploaded_file($fileTmpName,$fileDestination);
+                move_uploaded_file($fileTmpName, $fileDestination);
 
                 if (!$user) {?>
                 <script type="text/javascript">
@@ -79,7 +80,7 @@ if (isset($_POST['add'])) {
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $phone = $_POST["phone"];
+    $phone = intval($_POST["phone"]);
     $imageUrl = null;
     $role = "CLIENT";
 
@@ -127,48 +128,83 @@ if (isset($_POST['updateAdmin'])) {
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $password = MD5($_POST["password"]);
-    $phone = $_POST["phone"];
+    $phone = intval($_POST["phone"]);
 
-    $id = $_POST['id'];
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $phone = $_POST["phone"];
-    $imageUrl = null;
+    $file = $_FILES["image"];
 
-    $user = UserController::updateUser($id, $firstname, $lastname, $email, $password, $phone, $imageUrl);
+    $fileName = $_FILES["image"]["name"];
+    $fileTmpName = $_FILES["image"]["tmp_name"];
+    $fileSize = $_FILES["image"]["size"];
+    $fileError = $_FILES["image"]["error"];
+    $fileType = $_FILES["image"]["type"];
 
-    if (count($user) == 0) {
-        echo "
-    <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
-        <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
-        <strong>Update schedule </strong> unsuccessfull.
-    </div>
-    ";
+    $fileExtension = explode(".", $fileName);
+    $fileActaulExtension = strtolower(end($fileExtension));
+
+    $allowed = array("jpg", "jpeg", "png");
+    if (in_array($fileActaulExtension, $allowed)) {
+        if ($fileError === 0) {
+            if ($fileSize < 1_000_000) {
+                $newFileName = uniqid("", true) . "image" . "." . $fileActaulExtension;
+                $fileDestination = "../uploads/" . $newFileName;
+                $imageUrl = strval($newFileName);
+
+                $user = UserController::updateUser($id, $firstname, $lastname, $email, $password, $phone, $imageUrl);
+
+                move_uploaded_file($fileTmpName, $fileDestination);
+                if (!$user) {
+                echo "
+                    <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
+                    <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
+                    <strong>Error Update:</strong> unsuccessfull.
+                    </div>
+                ";
+                ?>
+                <script type="text/javascript">
+                     setTimeout(() => {
+                        //  window.location ="./users.php"
+                     }, 1000);
+                </script>
+                <?php } else {
+                    echo "
+                    <div class='alertMessage' style='display:block;'>
+                    <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
+                    <strong>Update </strong> successfull.
+                    </div>
+                    ";
+                    ?>
+                <script type="text/javascript">
+                     setTimeout(() => {
+                         window.location ="./users.php"
+                     }, 1000);
+                </script>
+                <?php
+}
+            } else {
+                ?>
+                <script type="text/javascript">
+                alert("Your not allowed to appload this Type of file! ");
+                  window.location ="./users.php";
+                </script>
+                <?php
+}
+
+        } else {
+            ?>
+            <script type="text/javascript">
+                alert("Your not allowed to uppload there is Error!");
+                window.location ="./users.php";
+                </script>
+            <?php
+}
+
+    } else {
         ?>
-    <script type="text/javascript">
-        setTimeout(() => {
-            window.location ="./users.php"
-        }, 100);
-    </script>
-
-    <?php
-} else {
-        echo "
-    <div class='alertMessage' style='display:block;'>
-        <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
-        <strong>Update schedule </strong> successfull.
-    </div>
-    ";
-        ?>
-    <script type="text/javascript">
-        setTimeout(() => {
-             window.location ="./users.php"
-        }, 100);
-    </script>
-
-    <?php
+        <script type="text/javascript">
+        alert("Your not allowed to uppload this Type of file!");
+                window.location ="./users.php";
+        </script>
+        <?php
 }
 }
 
@@ -176,7 +212,7 @@ if (isset($_POST['delete'])) {
     $id = $_POST['id'];
 
     $user = UserController::deleteUser($id);
-    if (count($user) >= 1) {
+    if ($user) {
         echo "
     <div class='alertMessage' style='display:block; background-color:rgb(243, 96, 96);'>
         <span class='closeBtn' onclick='this.parentElement.style.display=`none`;''>×</span>
