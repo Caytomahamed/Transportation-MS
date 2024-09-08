@@ -6,10 +6,10 @@ function myAutoLoader($className)
     $extension = ".php";
     $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $className);
 
-    $directories = array("data", "app", "view", "include");
+    $directories = ["models", "controllers", "view", "include"];
 
     // Config file
-    require_once $baseDir . "include/config.inc.php";
+    require_once "{$baseDir}include/config.inc.php";
 
     foreach ($directories as $directory) {
         $path = $baseDir . $directory . DIRECTORY_SEPARATOR . $classPath . $extension;

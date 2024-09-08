@@ -13,7 +13,6 @@ class Database
             }
 
         } catch (Exception $e) {
-            echo self::$connection;
             throw new Exception($e->getMessage());
         }
 

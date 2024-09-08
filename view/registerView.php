@@ -40,8 +40,8 @@
         </fieldset>
         <input type="submit" name="submit" id="submit" value="Register">
       </form>
-      <div class="circle--1"></div>
-      <div class="circle--2"></div>
+      <!-- <div class="circle--1"></div>
+      <div class="circle--2"></div> -->
     </div>
   </body>
 </html>

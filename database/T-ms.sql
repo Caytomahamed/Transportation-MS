@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS busscheduledb;
+-- DROP DATABASE IF EXISTS busscheduledb;
 
-CREATE DATABASE busscheduledb;
+-- CREATE DATABASE busscheduledb;
 
-use busscheduledb;
+-- use busscheduledb;
 
 -- phpMyAdmin SQL Dump
 -- version 4.8.1

@@ -30,8 +30,8 @@
         <input type="submit" name="Login" id="submit" value="submit">
       </form>
       <a href="./registerView.php" >Register Account</a>
-      <div class="circle--1"></div>
-      <div class="circle--2"></div>
+      <!-- <div class="circle--1"></div>
+      <div class="circle--2"></div> -->
     </div>
   </body>
 </html>
