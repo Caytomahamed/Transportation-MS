@@ -2,28 +2,40 @@
 
 # Caraabe
 
+## Table of Contents
+- [Problem Statement](#problem-statement)
+- [Objectives](#objectives)
+- [Methodology](#methodology)
+- [Requirements Specifications of the To-Be System](#requirements-specifications-of-the-to-be-system)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Existing System Description](#existing-system-description)
+- [Conclusion](#conclusion)
+- [License](#license)
+- [Copyright](#copyright)
+
 ## Problem Statement
 
-Our bus company is facing challenges with inefficient scheduling and routing, resulting in delays and poor customer service.
-This problem statement highlights the need for a bus transport management system that can improve scheduling and routing processes to provide better service to customers. By addressing this specific issue, the bus company can reduce delays, improve efficiency, and enhance the overall customer experience.
+Our bus company is facing challenges with inefficient scheduling and routing, resulting in delays and poor customer service. This highlights the need for a bus transport management system that can improve scheduling and routing processes to provide better service to customers. By addressing this issue, the bus company can reduce delays, enhance efficiency, and improve the overall customer experience.
 
 ## Objectives
 
-- The objectives of the project are:
-  Improve scheduling efficiency: The system should be able to optimize bus schedules and routes to reduce travel time, minimize delays, and improve on-time performance.
-- Enhance customer service: The system should provide real-time information on bus schedules and routes to passengers, allowing them to plan their journeys more effectively and reducing wait times at bus stops.
-- Increase operational efficiency: The system should automate tasks such as scheduling, route planning, and driver management, reducing the time and resources required to manage these processes manually.
-- Improve data management: The system should collect and store data on bus schedules, routes, and passenger demand, allowing operators to analyze this data and make informed decisions about service improvements.
+The objectives of the project are to:
+
+- **Improve scheduling efficiency:** Optimize bus schedules and routes to reduce travel time, minimize delays, and improve on-time performance.
+- **Enhance customer service:** Provide real-time information on bus schedules and routes to passengers, allowing for effective journey planning and reducing wait times at bus stops.
+- **Increase operational efficiency:** Automate tasks such as scheduling, route planning, and driver management, reducing time and resources needed for manual management.
+- **Improve data management:** Collect and store data on bus schedules, routes, and passenger demand, enabling operators to analyze data for informed decision-making regarding service improvements.
 
 ## Methodology
 
-One methodology that could be suitable for this project is the Agile methodology. Agile is a flexible, iterative approach to project management that emphasizes collaboration, customer feedback, and continuous improvement. This methodology involves breaking the project down into smaller, manageable tasks or iterations, with regular checkpoints and feedback from stakeholders.
-The Agile methodology could be well-suited for a bus transport management system project, as it allows for flexibility and adaptability in response to changing requirements or feedback from users. It also encourages collaboration and communication between team members, which can be important for a complex project like this.
+The Agile methodology is suitable for this project, emphasizing collaboration, customer feedback, and continuous improvement. This iterative approach allows for flexibility in response to changing requirements or user feedback and encourages team collaboration, which is vital for a complex project like this.
 
-## Requirements specifications of the to-be system
+## Requirements Specifications of the To-Be System
 
-Functional Requirement
-From the whole view of our system, it should have significant functional requirements, including
+### Functional Requirements
+
+The system should include significant functional requirements, including:
 
 1. Login and Registration System
 2. Booking Schedule
@@ -32,31 +44,35 @@ From the whole view of our system, it should have significant functional require
 5. Users Management Section
 6. Logout Section
 
-## Requirements specifications of the to-be system
+### Non-Functional Requirements
 
-- Non-Functional Requirements:
-  Non-functional requirements are those that specify the properties or characteristics that a bus system must possess, rather than specific functions or features. Non-functional requirements are important because they ensure that the system is reliable, performant, and secure. Here are some non-functional requirements that might apply to a bus system:
-- Performance: The system must be able to handle a large number of users, transactions, and requests, while maintaining response times within acceptable limits.
-- Reliability: The ability of a system or component to perform its required functions under stated conditions for a specified period of time
-- Security - is the degree of resistance to or protection from harm. It applies to any vulnerable and valuable asset, such as a person Login and Registration
-- Usability: The system must be easy to use and navigate for all users. The system should also be accessible on a variety of devices and platforms.
-- Maintainability: The system must be easy to maintain and modify, with minimal downtime or disruptions. The system should also be well-documented, with clear instructions for developers and administrators.
+Non-functional requirements specify the properties or characteristics that the bus system must possess:
+
+- **Performance:** The system must handle a large number of users, transactions, and requests, maintaining acceptable response times.
+- **Reliability:** Ability to perform required functions under stated conditions for a specified period.
+- **Security:** Degree of protection from harm for valuable assets, including user information.
+- **Usability:** The system should be easy to use and navigate, accessible on various devices and platforms.
+- **Maintainability:** The system must be easy to maintain and modify with minimal downtime, well-documented for developers and administrators.
 
 ## Existing System Description
 
-An existing manual bus transport management system is a system that relies on paper-based processes and manual record-keeping to manage the operations of a bus transport company. While this system may have worked in the past, it is no longer considered an effective way to manage a modern bus transport company. There are several reasons why this system is not good:
+The existing manual bus transport management system relies on paper-based processes and manual record-keeping, which is no longer effective for modern operations. This outdated system presents several challenges that hinder efficiency.
 
 ## Conclusion
 
-In conclusion, a Bus Transport Management System is a powerful software solution that can help bus transport companies improve their operational efficiency, reduce costs, and enhance the passenger experience. By providing a centralized platform for managing all aspects of the bus transport process including
+In conclusion, a Bus Transport Management System is a powerful software solution that can help bus transport companies improve operational efficiency, reduce costs, and enhance the passenger experience. By providing a centralized platform for managing all aspects of the bus transport process, including:
 
 - Scheduling
-- ticketing
-- fleet management
-- driver management
-- passenger management
+- Ticketing
+- Fleet Management
+- Driver Management
+- Passenger Management
 
-# Copyright
+## License
 
-- Copyright (c) [2023] [Aidarous Mahamed Abdi Muhumed aidarous1143@gmail.com]
-- All rights reserved.
+This project is licensed under the MIT License. See the [LICENSE](https://choosealicense.com/licenses/mit/) file for details.
+
+## Copyright
+
+Copyright (c) [2023] [Aidarous Mahamed Abdi Muhumed helpecayto@gmail.com]
+All rights reserved.
